@@ -91,14 +91,7 @@ def verify_strategy_logic():
     print("Testing Strategy Logic")
     print("=" * 60)
     
-    # Direct imports to avoid relative import issues
-    sys.path.insert(0, 'src/strategies')
-    sys.path.insert(0, 'src/indicators')
-    
-    from volatility import VolatilityIndicator
-    from breakout import BreakoutDetector
-    
-    # Create a simplified strategy test
+    # Reuse already imported modules from top
     config = Config('config/config.yaml')
     
     # Sample market data
@@ -106,7 +99,7 @@ def verify_strategy_logic():
     low = np.array([69.0, 69.5, 70.0, 69.8, 71.0, 71.0, 72.0] * 10)
     close = np.array([69.5, 70.0, 70.5, 70.2, 72.0, 71.5, 73.0] * 10)
     
-    # Calculate indicators
+    # Calculate indicators using already imported classes
     atr = VolatilityIndicator.calculate_atr(high, low, close, period=14)
     compression = VolatilityIndicator.detect_compression(atr, period=20, threshold=0.6)
     expansion = VolatilityIndicator.detect_expansion(atr, compression, multiplier=1.5)

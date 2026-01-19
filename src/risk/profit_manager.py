@@ -162,8 +162,8 @@ class ProfitManager:
                     }
             else:  # SELL
                 new_sl = current_price + trail_distance_points
-                # Only move SL down, never up
-                if new_sl < current_sl or current_sl == 0:
+                # Only move SL down, never up (and handle case when SL not set)
+                if new_sl < current_sl or (current_sl == 0 and new_sl > 0):
                     return {
                         'action': 'modify_sl',
                         'ticket': ticket,

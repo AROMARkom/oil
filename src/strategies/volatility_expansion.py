@@ -152,7 +152,7 @@ class VolatilityExpansionStrategy:
         Returns:
             True if sell signal is generated
         """
-        if len(close) < 2:
+        if len(close) < 2 or len(expansion) < 1 or len(bearish_breakout) < 1 or len(momentum) < 1:
             return False
         
         # Current bar conditions

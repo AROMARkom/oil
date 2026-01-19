@@ -63,7 +63,8 @@ class RiskManager:
         if price_diff > 0:
             position_size = risk_amount / (contract_size * price_diff)
         else:
-            position_size = 0.01  # Minimum position
+            # Fallback to symbol's minimum lot if calculation fails
+            position_size = symbol_info.get('min_lot', 0.01)
         
         # Apply minimum and maximum limits
         min_lot = symbol_info.get('min_lot', 0.01)

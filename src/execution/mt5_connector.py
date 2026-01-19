@@ -66,7 +66,7 @@ class MT5Connector:
             return True
             
         except Exception as e:
-            self.logger.error(f"MT5 connection error: {e}")
+            self.logger.error(f"MT5 connection error ({type(e).__name__}): {e}")
             return False
     
     def disconnect(self):

@@ -80,7 +80,7 @@ class NewsCalendar:
                 'is_eia_time': True,
                 'reason': f'EIA release window (±{self.avoid_before}/{self.avoid_after} min)',
                 'release_time': eia_release,
-                'minutes_to_release': minutes_to_release
+                'minutes_to_release': abs(minutes_to_release)
             }
         
         return {
