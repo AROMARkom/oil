@@ -1,0 +1,93 @@
+# WTI Oil Trading Bot Configuration
+
+# Trading Symbol
+symbol: "WTI"  # WTI Crude Oil CFD
+
+# Timeframe
+timeframe: "M15"  # 15-minute candles
+
+# Strategy Parameters
+strategy:
+  # Volatility Expansion Strategy
+  volatility:
+    compression_period: 20  # Periods to identify compression
+    compression_threshold: 0.6  # ATR ratio threshold for compression
+    expansion_multiplier: 1.5  # Expansion confirmation multiplier
+    
+  # Breakout parameters
+  breakout:
+    lookback_period: 10  # Candles to identify structure
+    min_breakout_size: 0.3  # Minimum breakout size in ATR multiples
+    
+# Session Filtering
+sessions:
+  london:
+    enabled: true
+    start_hour: 8  # UTC
+    end_hour: 16
+  newyork:
+    enabled: true
+    start_hour: 13  # UTC
+    end_hour: 21
+  # Avoid Asian session
+  asian:
+    enabled: false
+
+# Risk Management
+risk:
+  max_risk_per_trade: 0.02  # 2% of account per trade
+  atr_period: 14  # ATR calculation period
+  stop_loss_atr_multiple: 2.0  # SL distance in ATR multiples
+  max_daily_drawdown: 0.05  # 5% max daily drawdown
+  max_total_drawdown: 0.15  # 15% max total drawdown
+  
+# Profit Taking
+take_profit:
+  enabled: true
+  levels:
+    - target_atr_multiple: 2.0
+      close_percentage: 0.5  # Close 50% at 2x ATR
+    - target_atr_multiple: 3.5
+      close_percentage: 0.3  # Close 30% at 3.5x ATR
+    - target_atr_multiple: 5.0
+      close_percentage: 0.2  # Close remaining 20% at 5x ATR
+  trailing_stop:
+    enabled: true
+    activation_atr_multiple: 2.5
+    trail_atr_multiple: 1.5
+
+# News Avoidance
+news:
+  eia:
+    enabled: true
+    avoid_minutes_before: 30
+    avoid_minutes_after: 60
+    # EIA releases typically Wednesday 10:30 AM ET (15:30 UTC)
+    release_day: 3  # Wednesday (0=Monday)
+    release_hour: 15  # UTC
+    release_minute: 30
+
+# MetaTrader Settings
+metatrader:
+  platform: "MT5"  # MT4 or MT5
+  magic_number: 987654
+  deviation: 10  # Max price deviation in points
+  
+# Position Sizing
+position:
+  lot_size_mode: "dynamic"  # 'fixed' or 'dynamic'
+  fixed_lot_size: 0.01
+  dynamic_risk_based: true
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "logs/trading_bot.log"
+  console: true
+  
+# Backtest Mode
+backtest:
+  enabled: false
+  start_date: "2024-01-01"
+  end_date: "2024-12-31"
+  initial_balance: 10000
