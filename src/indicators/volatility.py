@@ -3,7 +3,6 @@ Volatility indicators and analysis for trading bot
 """
 import numpy as np
 from typing import List, Tuple
-import pandas as pd
 
 
 class VolatilityIndicator:

@@ -31,7 +31,8 @@ class TestBreakoutDetector:
     
     def test_detect_bullish_breakout(self):
         """Test bullish breakout detection"""
-        close = np.array([100.0, 100.5, 101.0, 101.5, 103.0])
+        # Price breaks from 100.5 to 103.0 (above resistance 101.5)
+        close = np.array([100.0, 100.5, 101.0, 100.5, 103.0])
         resistance = np.array([101.5, 101.5, 101.5, 101.5, 101.5])
         atr = np.array([1.0, 1.0, 1.0, 1.0, 1.0])
         
@@ -41,12 +42,13 @@ class TestBreakoutDetector:
         
         assert isinstance(breakouts, np.ndarray)
         assert len(breakouts) == len(close)
-        # Last candle should show breakout
+        # Last candle should show breakout (103.0 > 101.5, size = 1.5 = 1.5x ATR)
         assert breakouts[-1]
     
     def test_detect_bearish_breakout(self):
         """Test bearish breakout detection"""
-        close = np.array([100.0, 99.5, 99.0, 98.5, 97.0])
+        # Price breaks from 99.0 to 97.0 (below support 98.5)
+        close = np.array([100.0, 99.5, 99.0, 99.0, 97.0])
         support = np.array([98.5, 98.5, 98.5, 98.5, 98.5])
         atr = np.array([1.0, 1.0, 1.0, 1.0, 1.0])
         
@@ -56,7 +58,7 @@ class TestBreakoutDetector:
         
         assert isinstance(breakouts, np.ndarray)
         assert len(breakouts) == len(close)
-        # Should detect bearish breakout
+        # Should detect bearish breakout (97.0 < 98.5, size = 1.5 = 1.5x ATR)
         assert breakouts[-1]
     
     def test_calculate_momentum(self):
